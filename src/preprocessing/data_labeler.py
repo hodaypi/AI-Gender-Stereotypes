@@ -263,12 +263,15 @@ def main():
 
     # Process posts
     print("\nProcessing posts...")
-    process_posts("all_posts.json", "labeled_posts.json")
+    process_posts("all_gender_posts.json", "labeled_all_gender_posts.json")
 
     # Process gender-specific posts
-    print("\nProcessing gender-related posts...")
-    process_posts("gender_posts.json", "labeled_gender_posts.json")
-
+    print("\nProcessing female posts...")
+    process_posts("female_posts.json", "labeled_female_posts.json")
+    
+    print("\nProcessing male posts...")
+    process_posts("male_posts.json", "labeled_male_posts.json")
+    
     # Process comments
     print("\nProcessing comments...")
     process_comments("comments.json", "labeled_comments.json")
