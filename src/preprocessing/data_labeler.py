@@ -16,7 +16,7 @@ import pandas as pd
 from tqdm import tqdm
 
 # Data paths
-DATA_DIR = Path(__file__).parent.parent.parent / "data"
+DATA_DIR = Path("/content/gdrive/MyDrive/Data mining/text mining/data")
 RAW_DIR = DATA_DIR / "raw"
 PROCESSED_DIR = DATA_DIR / "processed"
 LEXICONS_DIR = DATA_DIR / "lexicons"
