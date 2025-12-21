@@ -235,6 +235,9 @@ def process_comments(input_file: str, output_file: str):
 
     print(f"Processed {len(labeled_comments)} comments")
     print(f"Saved to {output_path} and {csv_path}")
+     
+    # Print summary statistics
+    print_label_summary(df)
 
 
 def print_label_summary(df: pd.DataFrame):
