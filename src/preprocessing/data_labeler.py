@@ -17,7 +17,7 @@ from tqdm import tqdm
 
 # Data paths
 DATA_DIR = Path("/content/gdrive/MyDrive/Data mining/text mining/data")
-RAW_DIR = DATA_DIR / "raw"
+RAW_DIR = DATA_DIR / "interim"
 PROCESSED_DIR = DATA_DIR / "processed"
 LEXICONS_DIR = DATA_DIR / "lexicons"
 
@@ -263,20 +263,11 @@ def main():
 
     # Process posts
     print("\nProcessing posts...")
-    process_posts("all_gender_posts.json", "labeled_all_gender_posts.json")
-
-    # Process gender-specific posts
-    #Female posts
-    print("\nProcessing female posts...")
-    process_posts("female_posts.json", "labeled_female_posts.json")
-
-    #Male posts
-    print("\nProcessing male posts...")
-    process_posts("male_posts.json", "labeled_male_posts.json")
+    process_posts("all_posts_clean.json", "labeled_all_gender_posts.json")
     
     # Process comments
     print("\nProcessing comments...")
-    process_comments("comments.json", "labeled_comments.json")
+    process_comments("comments_clean.json", "labeled_comments.json")
 
 
 if __name__ == "__main__":
