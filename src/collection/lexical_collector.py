@@ -163,10 +163,16 @@ def build_lexicons(nrc_path, gi_path, output_dir):
 # --------------------------------------------------
 # Execution
 # --------------------------------------------------
+
+def main():
+# הגדרת הנתיבים (Hardcoded כמו שביקשת בקבצים הקודמים)
+  nrc_path = "/content/gdrive/MyDrive/Data mining/text mining/NRC emotion.txt"
+  gi_path = "/content/gdrive/MyDrive/Data mining/text mining/Harvard General Inquirer.txt"
+  output_dir = "/content/gdrive/MyDrive/Data mining/text mining/data/lexicons"
+
+  print("Starting Lexical Collection...")
+  build_lexicons(nrc_path, gi_path, output_dir)
+  print("Done.")
+
 if __name__ == "__main__":
-    # עדכני כאן את הנתיבים שלך
-    build_lexicons(
-      nrc_path = "/content/gdrive/MyDrive/Data mining/text mining/NRC emotion.txt",
-      gi_path = "/content/gdrive/MyDrive/Data mining/text mining/Harvard General Inquirer.txt",
-      output_dir = "/content/gdrive/MyDrive/Data mining/text mining/data/lexicons"
-    )
+    main()
