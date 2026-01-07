@@ -2,6 +2,8 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 import os
+import numpy as np
+from math import pi
 
 
 # columns
@@ -89,6 +91,85 @@ def plot_correlation_matrix(df):
     plt.title("Correlation Heatmap: Sentiment vs. Psychology", fontsize=16)
     plt.tight_layout()
     plt.show()
+def plot_radar_chart(df):
+    """4. גרף רדאר - פרופיל פסיכולוגי ממוצע (גברים מול נשים)"""
+    # חישוב ממוצעים לכל מגדר בכל קטגוריה
+    df_clean = df[df['gender_context'].isin(['male', 'female'])]
+    means = df_clean.groupby('gender_context')[LIWC_COLS].mean()
+    
+    # הכנת הנתונים לגרף
+    categories = [c.replace('LIWC_', '').replace('_', ' ').title() for c in LIWC_COLS]
+    N = len(categories)
+    
+    # חישוב זוויות (יוצרים מעגל)
+    angles = [n / float(N) * 2 * pi for n in range(N)]
+    angles += angles[:1] # סגירת המעגל
+    
+    plt.figure(figsize=(8, 8))
+    ax = plt.subplot(111, polar=True)
+    
+    # ציר ה-X (הקטגוריות)
+    plt.xticks(angles[:-1], categories, color='grey', size=10)
+    
+    # ציור הקווים עבור כל מגדר
+    for gender in ['male', 'female']:
+        values = means.loc[gender].tolist()
+        values += values[:1] # סגירת המעגל
+        
+        ax.plot(angles, values, linewidth=2, linestyle='solid', label=gender, color=PALETTE[gender])
+        ax.fill(angles, values, color=PALETTE[gender], alpha=0.1)
+    
+    plt.title("Average Psychological Profile (Radar Chart)", size=16, y=1.1)
+    plt.legend(loc='upper right', bbox_to_anchor=(0.1, 0.1))
+    plt.show()
+
+def plot_sentiment_by_topic_violin(df):
+    """5. גרף כינור - סנטימנט לפי מגדר וסוג ה-AI"""
+    plt.figure(figsize=(10, 6))
+    
+    # סינון רלוונטי
+    df_clean = df[
+        (df['gender_context'].isin(['male', 'female'])) & 
+        (df['ai_category'].isin(['hard_ai', 'soft_ai']))
+    ]
+    
+    # גרף כינור (שילוב של Boxplot וצפיפות)
+    sns.violinplot(data=df_clean, x='ai_category', y=VADER_COL, hue='gender_context',
+                   split=True, inner="quart", palette=PALETTE)
+    
+    plt.title("Sentiment Distribution by AI Topic & Gender", fontsize=15)
+    plt.xlabel("AI Category")
+    plt.ylabel("Sentiment Score (VADER)")
+    plt.axhline(0, color='grey', linestyle='--', alpha=0.5) # קו האפס
+    
+    plt.tight_layout()
+    plt.show()
+
+def plot_certainty_vs_sentiment(df):
+    """6. גרף פיזור - הקשר בין ביטחון (Certainty) לסנטימנט"""
+    plt.figure(figsize=(10, 6))
+    
+    df_clean = df[df['gender_context'].isin(['male', 'female'])]
+    
+    # שימוש ב-lmplot שמוסיף גם קו מגמה (רגרסיה)
+    # אנחנו רוצים לראות אם הקו עולה (קשר חיובי) או יורד
+    sns.regplot(data=df_clean[df_clean['gender_context']=='male'], 
+                x='LIWC_certainty', y=VADER_COL, 
+                scatter_kws={'alpha':0.1}, line_kws={'color': PALETTE['male']}, label='Male')
+                
+    sns.regplot(data=df_clean[df_clean['gender_context']=='female'], 
+                x='LIWC_certainty', y=VADER_COL, 
+                scatter_kws={'alpha':0.1, 'color': PALETTE['female']}, line_kws={'color': PALETTE['female']}, label='Female')
+
+    plt.title("Correlation: Confidence (Certainty) vs. Sentiment", fontsize=15)
+    plt.xlabel("LIWC Certainty Score")
+    plt.ylabel("VADER Sentiment Score")
+    plt.legend()
+    plt.xlim(0, 20) # מגביל את הציר כדי לא לראות חריגים רחוקים מדי
+    
+    plt.tight_layout()
+    plt.show()
+
 
 def main():
   
@@ -110,8 +191,17 @@ def main():
       print("2. Plotting LIWC Comparison (Big Graph)...")
       plot_liwc_comparison(df)
       
-      print("3. Plotting Correlations...")
-      plot_correlation_matrix(df)
+      #print("3. Plotting Correlations...")
+      #plot_correlation_matrix(df)
+      
+      print("4. Plotting Radar Chart...")
+      plot_radar_chart(df)
+
+      print("5. Plotting Sentiment by Topic (Violin)...")
+      plot_sentiment_by_topic_violin(df)
+
+      print("6. Plotting Certainty vs Sentiment Scatter...")
+      plot_certainty_vs_sentiment(df)
       
   except FileNotFoundError:
       print("Error: File not found.")
