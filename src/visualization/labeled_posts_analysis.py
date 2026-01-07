@@ -2,17 +2,36 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 import os
+from wordcloud import WordCloud, STOPWORDS
+from collections import Counter
+import re
 
+PALETTE = {
+      'female': '#e74c3c',      
+      'male': '#2c3e50',        
+      'Female': '#e74c3c',
+      'Male': '#2c3e50',
+      'Undetermined': '#95a5a6', 
+      'Other/Unlabeled': '#95a5a6',
+      
+      # research_group
+      'female_hard_ai': '#c0392b',
+      'male_hard_ai': '#2c3e50',
+      'female_soft_ai': '#e67e22',
+      'male_soft_ai': '#3498db',
+      
+      # ai_category
+      'hard_ai': '#2c3e50',
+      'soft_ai': '#e67e22'
+}
 
 def add_labels(ax, total_count=None):
     for p in ax.patches:
         height = p.get_height()
         if height > 0:
-            # המספר המוחלט
             ax.text(p.get_x() + p.get_width()/2., height + (height*0.01), 
                     f'{int(height)}', 
                     ha="center", fontsize=11, fontweight='bold')
-            # אחוזים (אם נשלח סך הכל)
             if total_count:
                 percentage = (height / total_count) * 100
                 if percentage > 4: 
@@ -88,7 +107,100 @@ def plot_selftalk_distribution(df):
     add_labels(ax)
     plt.tight_layout()
     plt.show()
+def plot_group_wordclouds(df):
+    """
+    Generates 4 Word Clouds - one for each research group.
+    """
+    groups = ['female_hard_ai', 'male_hard_ai', 'female_soft_ai', 'male_soft_ai']
+    
+    # remove Stopwords 
+    stopwords = set(STOPWORDS)
+    stopwords.update(["https", "com", "www", "reddit", "post"])
 
+    fig, axes = plt.subplots(2, 2, figsize=(16, 12))
+    axes = axes.flatten()
+
+    for i, group in enumerate(groups):
+        # filter research group
+        subset = df[df['research_group'] == group]
+        
+        text_data = " ".join(subset['title'].fillna('') + " " + subset['selftext'].fillna(''))
+        
+        if not text_data.strip():
+            axes[i].text(0.5, 0.5, "No Data", ha='center', va='center')
+            continue
+
+        # create wordcloud
+        wc = WordCloud(
+            stopwords=stopwords,
+            background_color="white",
+            colormap="ocean", 
+            width=800, height=500,
+            max_words=50
+        ).generate(text_data)
+
+        axes[i].imshow(wc, interpolation='bilinear')
+        axes[i].set_title(f"{group} ({len(subset)} posts)", fontsize=14, fontweight='bold')
+        axes[i].axis("off")
+
+    plt.suptitle("Word Clouds by Research Group", fontsize=20)
+    plt.tight_layout()
+    plt.show()
+
+def plot_top_words_comparison(df, palette):
+    """
+    Shows the top 10 most frequent words for each group using Bar Charts.
+    """
+    groups = ['female_hard_ai', 'male_hard_ai', 'female_soft_ai', 'male_soft_ai']
+    stopwords = set(STOPWORDS)
+    stopwords.update(["https", "com", "www", "reddit", "post", "deleted", "removed", "ai", "one", "would", "like"])
+
+    fig, axes = plt.subplots(2, 2, figsize=(16, 12))
+    axes = axes.flatten()
+
+    for i, group in enumerate(groups):
+        subset = df[df['research_group'] == group]
+        text_data = " ".join(subset['title'].fillna('') + " " + subset['selftext'].fillna(''))
+        
+        words = re.findall(r'\b\w+\b', text_data.lower())
+        words = [w for w in words if w not in stopwords and len(w) > 2]
+        
+        common_words = Counter(words).most_common(10)
+        
+        if not common_words:
+            continue
+            
+        words_list, counts_list = zip(*common_words)
+        
+        color = palette.get(group, 'grey')
+        
+        sns.barplot(x=list(counts_list), y=list(words_list), ax=axes[i], color=color)
+        axes[i].set_title(f"Top 10 Words: {group}", fontsize=12, fontweight='bold')
+        axes[i].set_xlabel("Frequency")
+
+    plt.suptitle("Most Frequent Words Analysis", fontsize=18)
+    plt.tight_layout()
+    plt.show()
+
+def plot_post_length_distribution(df, palette):
+    """
+    Boxplot showing the length of posts (word count) across groups.
+    Answers: Do Hard AI posts tend to be longer?
+    """
+    df['word_count'] = (df['title'].fillna('') + " " + df['selftext'].fillna('')).apply(lambda x: len(str(x).split()))
+    
+    groups = ['female_hard_ai', 'male_hard_ai', 'female_soft_ai', 'male_soft_ai']
+    df_groups = df[df['research_group'].isin(groups)]
+
+    plt.figure(figsize=(12, 6))
+    
+    sns.boxplot(data=df_groups, x='research_group', y='word_count', order=groups, palette=palette, showfliers=False)
+    
+    plt.title("Post Length Distribution (Word Count) by Research Group", fontsize=16)
+    plt.ylabel("Number of Words per Post")
+    plt.xlabel("Research Group")
+    plt.grid(axis='y', alpha=0.3)
+    plt.show()
 # ==========================================
 #  MAIN FUNCTION
 # ==========================================
@@ -146,6 +258,17 @@ def main():
   #6
   print("Generating Graph 6...")
   plot_selftalk_distribution(df)
+  # 7. Word Clouds
+  print("Generating Graph 7 (Word Clouds)...")
+  plot_group_wordclouds(df)
+
+  # 8. Top 10 Words
+  print("Generating Graph 8 (Top Words)...")
+  plot_top_words_comparison(df, PALETTE)
+
+  # 9. Post Length
+  print("Generating Graph 9 (Post Length)...")
+  plot_post_length_distribution(df, PALETTE)  
   
 
 if __name__ == "__main__":
