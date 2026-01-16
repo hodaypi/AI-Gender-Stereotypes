@@ -26,18 +26,44 @@ load_dotenv()
 
 # Configuration
 SUBREDDITS = {
-    "technical": ["MachineLearning", "OpenAI"],
-    "creative": ["Midjourney", "StableDiffusion"],
-    "career": ["CSCareerQuestions"],
-    "ethics_soft_ai": ["artificial", "singularity", "ChatGPT", "AIethics"]
+    "technical": [
+        "MachineLearning", "OpenAI", "deeplearning", "LanguageTechnology",
+        "learnmachinelearning", "MLQuestions", "datascience", "LocalLLaMA",
+        "Oobabooga", "LLMDevs"
+    ],
+    "creative": [
+        "Midjourney", "StableDiffusion", "AIArt", "comfyui", "dalle",
+        "Leonardo_AI"
+    ],
+    "ai_tools": [
+        "ClaudeAI", "Bard", "bing", "Perplexity", "NotionAI", "GPT3"
+    ],
+    "career": [
+        "CSCareerQuestions", "ExperiencedDevs", "cscareerquestionsEU",
+        "MLjobs", "datasciencecareer"
+    ],
+    "ethics_soft_ai": [
+        "artificial", "singularity", "ChatGPT", "AIethics",
+        "ControlProblem", "AItechnology"
+    ],
+    "general": [
+        "ArtificialInteligence", "technology", "FutureTechnology"
+    ]
 }
 
 # Flatten subreddit list
 ALL_SUBREDDITS = [sub for category in SUBREDDITS.values() for sub in category]
 
-# Search queries for gender terms (optimized for Reddit search)
-FEMALE_QUERIES = ["woman", "women", "female", "she", "her", "girl"]
-MALE_QUERIES = ["man", "men", "male", "he", "his", "guy"]
+# Search queries loaded from lexicons
+def load_gender_queries():
+    """Load gender search queries from lexicon files."""
+    female = load_lexicon("gender_female.txt")
+    male = load_lexicon("gender_male.txt")
+    return female, male
+
+# Will be loaded after load_lexicon is defined
+FEMALE_QUERIES = []
+MALE_QUERIES = []
 
 # Data paths
 DATA_DIR = Path(__file__).parent.parent.parent / "data"
@@ -368,9 +394,15 @@ def save_data(data: List[Dict], filename: str, format: str = "json"):
 
 def main():
     """Main data collection pipeline with checkpoint/resume support."""
+    global FEMALE_QUERIES, MALE_QUERIES
+
     print("=" * 60)
     print("Reddit Data Collector for Gender Stereotypes in AI Research")
     print("=" * 60)
+
+    # Load gender queries from lexicons
+    FEMALE_QUERIES, MALE_QUERIES = load_gender_queries()
+    print(f"Loaded {len(FEMALE_QUERIES)} female terms, {len(MALE_QUERIES)} male terms from lexicons")
 
     # Load checkpoint
     checkpoint = load_checkpoint()
@@ -401,7 +433,7 @@ def main():
             print(f"\nCollecting from r/{subreddit}...")
             results = collect_gender_posts_with_checkpoint(
                 reddit, subreddit, checkpoint,
-                limit_per_query=200,
+                limit_per_query=1000,
                 time_filter="all"
             )
             all_female_posts.extend(results["female"])
@@ -463,7 +495,7 @@ def main():
 
     # Sort by num_comments and take top posts
     df_sorted = df.sort_values('num_comments', ascending=False)
-    top_posts = df_sorted.head(200)  # Top 200 posts by comment count
+    top_posts = df_sorted.head(500)  # Top 500 posts by comment count
 
     # Load existing comments
     all_comments = load_tmp_comments()
