@@ -1,35 +1,132 @@
-llm
-llms
-transformer
-transformers
-pytorch
-tensorflow
-tensor
-tensors
-gpu
-gpus
-cuda
-architecture
-architectures
-optimization
-optimizer
+a100
+activation function
+adam
 algorithm
 algorithms
+architecture
+architectures
+artificial intelligence
+attention
+attention mechanism
+autoencoder
+backpropagation
+batch
+batch size
+beam search
+bert
+bias
+biases
+claude
+cloud computing
+cnn
+cnns
+compute cluster
+computer vision
+cross-validation
+cuda
+data augmentation
+datasets
+decoder
+deep learning
+diffusion model
+diffusion models
+docker
+dropout
+early stopping
+embedding
+embeddings
+encoder
+epochs
+fine tuning
+fine-tuning
+gan
+gans
+generative ai
+gpu
+gpus
+gradient
+gradient descent
+gradients
+h100
+hugging face
+huggingface
+hyperparameter
+hyperparameters
+inference
+jax
+keras
+kubernetes
+langchain
+large language model
+large language models
+latency
+learning rate
+llama
+llm
+llms
+logits
+loss function
+lstm
+lstms
+machine learning
+mistral
+mixture of experts
+mlops
+model
+model training
+models
+moe
+multi-head attention
+natural language processing
 neural
+neural network
+neural networks
 network
 networks
-backpropagation
-gradient
-gradients
-training
-inference
-model
-models
+nvidia
+opencv
+optimization
+optimizer
+optimizers
+overfitting
+parallel computing
+parameter
 parameters
-weights
-embeddings
-attention
-bert
-gpt
-fine-tuning
+positional encoding
+pre-training
 pretraining
+pruning
+pytorch
+quantization
+rag
+regularization
+reinforcement learning
+retrieval augmented generation
+rnn
+rnns
+sampling
+scikit-learn
+self-attention
+sklearn
+stochastic gradient descent
+supervised learning
+tensor
+tensorflow
+tensors
+throughput
+token
+tokenization
+tokenizer
+tokens
+tpu
+tpus
+training
+transfer learning
+transformer
+transformers
+underfitting
+unsupervised learning
+vector
+vectors
+weight
+weights
