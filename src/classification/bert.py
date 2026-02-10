@@ -49,16 +49,16 @@ def train_bert_model(data_dir, model_dir):
     val_encodings = tokenize_function(val_texts)
 
     class GenderDataset(torch.utils.data.Dataset):
-        def _init_(self, encodings, labels):
+        def __init__(self, encodings, labels):
             self.encodings = encodings
             self.labels = labels
 
-        def _getitem_(self, idx):
+        def __getitem__(self, idx):
             item = {key: torch.tensor(val[idx]) for key, val in self.encodings.items()}
             item['labels'] = torch.tensor(self.labels[idx])
             return item
 
-        def _len_(self):
+        def __len__(self):
             return len(self.labels)
 
     train_dataset = GenderDataset(train_encodings, train_labels)
@@ -72,18 +72,18 @@ def train_bert_model(data_dir, model_dir):
 
     #parameters 
     training_args = TrainingArguments(
-        output_dir=os.path.join(base_dir, "models/bert_results"), 
-        num_train_epochs=3,               
+        output_dir=os.path.join(model_dir, "bert_results"), 
+        num_train_epochs=3,
         per_device_train_batch_size=16,
-        per_device_eval_batch_size=64,   # val size
-        warmup_steps=500,                
-        weight_decay=0.01,               # regulization to prevent Overfitting
-        logging_dir='./logs',            
+        per_device_eval_batch_size=64,
+        warmup_steps=500,
+        weight_decay=0.01,
+        logging_dir='./logs',
         logging_steps=50,
-        evaluation_strategy="epoch",     # evaluate after every epoch
-        save_strategy="epoch",           # save model after every epoch
-        load_best_model_at_end=True,     # save the best model
-        metric_for_best_model="f1"       # F1 metric to decide the best model
+        eval_strategy="epoch",
+        save_strategy="epoch",
+        load_best_model_at_end=True,
+        metric_for_best_model="f1"
     )
 
     print("\n--- 4. Training ---")
@@ -108,7 +108,7 @@ def train_bert_model(data_dir, model_dir):
     print(f"Model saved successfully to {save_path}")
 
 def main():
-    DATA_DIR = "/content/gdrive/MyDrive/Data mining/text mining/data"
-	  MODEL_DIR= "/content/gdrive/MyDrive/Data mining/text mining/models"
-
-    train_bert_model(DATA_DIR, MODEL_DIR)
+  
+  DATA_DIR = "/content/gdrive/MyDrive/Data mining/text mining/data"
+  MODEL_DIR= "/content/gdrive/MyDrive/Data mining/text mining/models"
+  train_bert_model(DATA_DIR, MODEL_DIR)
