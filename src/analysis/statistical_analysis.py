@@ -1,3 +1,7 @@
+"""
+STATISTICAL TEST: Chi-Square Test of Independence
+Check if 'Gender' and 'AI Topic' are related or independent.
+"""
 import pandas as pd
 import scipy.stats as stats
 import matplotlib.pyplot as plt
@@ -93,6 +97,14 @@ def run_chi_square_research_group(TARGET_GROUPS, processed_dir, results_dir, pos
     plt.savefig(save_path_pct, bbox_inches='tight', dpi=300)
     print(f"Saved Percentage Table to: {save_path_pct}")
     plt.show()
+
+    print(f"Chi-Square P-Value: {p:.4e}")
+    if p < 0.05:
+      print("\n=> RESULT: SIGNIFICANT BIAS DETECTED.")
+      print("There is a statistically significant dependency between Gender and AI Topic.")
+      print("(This proves that women and men appear in different frequencies across Hard vs Soft AI).\n")
+    else:
+      print("\n=> RESULT: NO SIGNIFICANT BIAS.")
 
 def main():
     processed_dir = "/content/gdrive/MyDrive/Data mining/text mining/data/processed"
