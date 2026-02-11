@@ -7,22 +7,22 @@ from collections import Counter
 import re
 
 PALETTE = {
-      'female': '#e74c3c',      
-      'male': '#2c3e50',        
-      'Female': '#e74c3c',
-      'Male': '#2c3e50',
-      'Undetermined': '#95a5a6', 
-      'Other/Unlabeled': '#95a5a6',
+      'female': '#d5a6bd',      
+      'male': '#a4c2f4',        
+      'Female': '#d5a6bd',
+      'Male': '#a4c2f4',
+      'Undetermined': '#909090', 
+      'Other/Unlabeled': '#909090',
       
       # research_group
-      'female_hard_ai': '#c0392b',
-      'male_hard_ai': '#2c3e50',
-      'female_soft_ai': '#e67e22',
-      'male_soft_ai': '#3498db',
-      
+      'female_hard_ai': '#d5a6bd', 
+      'male_hard_ai':   '#a4c2f4',
+      'female_soft_ai': '#f9cb9c', 
+      'male_soft_ai':   '#a2c4c9',
+
       # ai_category
-      'hard_ai': '#2c3e50',
-      'soft_ai': '#e67e22'
+      'hard_ai': '#a2c4c9',
+      'soft_ai': '#f9cb9c'
 }
 
 def add_labels(ax, total_count=None):
@@ -211,23 +211,24 @@ def main():
 
   #colors
   PALETTE = {
-      'female': '#e74c3c',      
-      'male': '#2c3e50',        
-      'Female': '#e74c3c',
-      'Male': '#2c3e50',
-      'Undetermined': '#95a5a6', 
-      'Other/Unlabeled': '#95a5a6',
-      
-      # research_group
-      'female_hard_ai': '#c0392b',
-      'male_hard_ai': '#2c3e50',
-      'female_soft_ai': '#e67e22',
-      'male_soft_ai': '#3498db',
-      
-      # ai_category
-      'hard_ai': '#2c3e50',
-      'soft_ai': '#e67e22'
+        'female': '#d5a6bd',      
+        'male': '#a4c2f4',        
+        'Female': '#d5a6bd',
+        'Male': '#a4c2f4',
+        'Undetermined': '#909090', 
+        'Other/Unlabeled': '#909090',
+        
+        # research_group
+        'female_hard_ai': '#d5a6bd', 
+        'male_hard_ai':   '#a4c2f4',
+        'female_soft_ai': '#f9cb9c', 
+        'male_soft_ai':   '#a2c4c9',
+
+        # ai_category
+        'hard_ai': '#a2c4c9',
+        'soft_ai': '#f9cb9c'
   }
+
   path = os.path.join(PROCESSED_DIR, POSTS_FILE)
   
   if not os.path.exists(path):
