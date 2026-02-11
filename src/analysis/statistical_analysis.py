@@ -1,7 +1,6 @@
 """
 STATISTICAL TEST: Chi-Square Test of Independence
 Check if 'Gender' and 'AI Topic' are related or independent.
-
 """
 import pandas as pd
 import scipy.stats as stats
@@ -10,8 +9,8 @@ import six
 import numpy as np
 import os
 
-UNIFORM_HEADER_COLOR = '#6d9eeb'  
-CORNER_HEADER_COLOR = '#9f9e9e'    
+UNIFORM_HEADER_COLOR = '#a4c2f4'  
+CORNER_HEADER_COLOR = '#a2c4c9'    
 ROW_COLORS = ['w']                
 
 def render_unified_table(data, col_width=3.5, row_height=0.7, font_size=14,
@@ -120,5 +119,4 @@ def main():
     run_chi_square_research_group(TARGET_GROUPS, processed_dir, results_dir, posts_file)
 
 if __name__ == "__main__":
-
     main()
