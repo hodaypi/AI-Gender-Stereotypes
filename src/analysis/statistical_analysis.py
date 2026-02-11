@@ -1,6 +1,7 @@
 """
 STATISTICAL TEST: Chi-Square Test of Independence
 Check if 'Gender' and 'AI Topic' are related or independent.
+
 """
 import pandas as pd
 import scipy.stats as stats
@@ -119,4 +120,5 @@ def main():
     run_chi_square_research_group(TARGET_GROUPS, processed_dir, results_dir, posts_file)
 
 if __name__ == "__main__":
+
     main()
