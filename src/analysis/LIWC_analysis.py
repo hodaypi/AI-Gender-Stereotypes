@@ -166,7 +166,7 @@ def analyze_rq3_liwc():
         col_width=4.5,  
         header_color='#a2c4c9' 
     )
-    plt.title("Table 4: LIWC Analysis Results (Self-Talk)", fontsize=16, y=1.1)
+    plt.title("Table 2: LIWC Analysis Results (Self-Talk)", fontsize=16, y=1.1)
     
     save_path_table = RESULTS_DIR / "RQ3_LIWC_Stats_Table.png"
     plt.savefig(save_path_table, bbox_inches='tight', dpi=300)
