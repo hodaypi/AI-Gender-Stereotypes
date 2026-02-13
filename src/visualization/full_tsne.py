@@ -131,8 +131,7 @@ def visualize_full_semantic_space(model_path, hard_lex_path, soft_lex_path, fema
             texts.append(plt.text(
                 x_coords[i], y_coords[i], 
                 words[i],
-                fontsize=10 if is_gender else 8,
-                weight='bold' if is_gender else 'normal',
+                fontsize=8,
                 color='white'
             ))
 
