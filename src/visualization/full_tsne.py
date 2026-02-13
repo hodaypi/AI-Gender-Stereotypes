@@ -18,7 +18,7 @@ COLORS = {
     'Female Term': '#FF1493',  # DeepPink
     'Hard AI': '#32CD32',      # LimeGreen
     'Soft AI': '#FFA500',      # Orange
-    'Background': '#696969'    # DimGray
+    'Background': '#808080'    # DimGray
 }
 
 def load_lexicon(path):
@@ -67,7 +67,7 @@ def visualize_full_semantic_space(model_path, hard_lex_path, soft_lex_path, fema
         labels.append('Background')
         words.append(w)
         sizes.append(5)         
-        alphas.append(0.15)     
+        alphas.append(0.3)     
         colors.append(COLORS['Background'])
 
     # add Hard AI
@@ -110,7 +110,7 @@ def visualize_full_semantic_space(model_path, hard_lex_path, soft_lex_path, fema
     
     # t-SNE
     print("Running t-SNE on full vocabulary (Pro+ Mode)...")
-    tsne = TSNE(n_components=2, perplexity=50, n_iter=1000, random_state=42, init='pca', learning_rate='auto', n_jobs=-1)
+    tsne = TSNE(n_components=2, perplexity=50, n_iter=3000, random_state=42, init='pca', learning_rate='auto', n_jobs=-1)
     X_embedded = tsne.fit_transform(X)
     
     x_coords = X_embedded[:, 0]
