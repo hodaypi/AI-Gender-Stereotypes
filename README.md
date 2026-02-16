@@ -46,10 +46,10 @@ This research project investigates how gender stereotypes manifest in AI-related
 ### Collection Totals
 | Data Type | Count |
 |-----------|-------|
-| Total Posts | 13,977 |
-| Female-related Posts | 6,948 |
-| Male-related Posts | 7,029 |
-| Comments | 309,124 |
+| Total Posts | 57,392 |
+| Female-related Posts | 13,757 |
+| Male-related Posts | 24,314 |
+| Comments | 942,108 |
 
 ### Output Files
 - `data/raw/female_posts.json` - Posts mentioning female terms
