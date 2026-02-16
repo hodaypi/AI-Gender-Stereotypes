@@ -21,11 +21,12 @@ This research project investigates how gender stereotypes manifest in AI-related
 ### Subreddits
 | Category | Subreddits |
 |----------|------------|
-| Technical Core | r/MachineLearning, r/OpenAI |
-| Creative/Usage | r/Midjourney, r/StableDiffusion |
-| Career | r/CSCareerQuestions |
-| Ethics & Soft AI | r/artificial, r/singularity, r/ChatGPT, r/AIethics |
-
+| Technical Core | r/MachineLearning, r/OpenAI, r/deeplearning, r/LanguageTechnology, r/learnmachinelearning, r/MLQuestions, r/datascience, r/LocalLLaMA, r/Oobabooga, r/LLMDevs |
+| Creative/Usage | r/Midjourney, r/StableDiffusion, r/AIArt, r/comfyui, r/dalle, r/Leonardo_AI |
+| Career | r/CSCareerQuestions, r/ExperiencedDevs, r/cscareerquestionsEU, r/MLjobs, r/datasciencecareer |
+| Ethics & Soft AI | r/artificial, r/singularity, r/ChatGPT, r/AIethics, r/ControlProblem, r/AItechnology|
+| AI Tools | r/ClaudeAI, r/Bard, r/bing, r/Perplexity, r/NotionAI, r/GPT3 |
+| General | r/ArtificialInteligence, r/technology, r/FutureTechnology|
 ## Dataset Summary
 
 ### Posts by Subreddit
