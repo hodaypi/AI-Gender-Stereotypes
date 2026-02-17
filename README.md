@@ -30,18 +30,46 @@ This research project investigates how gender stereotypes manifest in AI-related
 ## Dataset Summary
 
 ### Posts by Subreddit
-| Subreddit | Female | Male | Total | Category |
-|-----------|--------|------|-------|----------|
-| MachineLearning | 550 | 704 | 1,254 | Technical |
-| OpenAI | 703 | 797 | 1,500 | Technical |
-| Midjourney | 1,144 | 1,101 | 2,245 | Creative |
-| StableDiffusion | 1,102 | 1,026 | 2,128 | Creative |
-| CSCareerQuestions | 964 | 865 | 1,829 | Career |
-| artificial | 659 | 751 | 1,410 | Ethics/Soft AI |
-| singularity | 764 | 859 | 1,623 | Ethics/Soft AI |
-| ChatGPT | 1,059 | 912 | 1,971 | Ethics/Soft AI |
-| AIethics | 3 | 14 | 17 | Ethics/Soft AI |
-| **Total** | **6,948** | **7,029** | **13,977** | |
+
+|## Posts per Subreddit by Gender Context (Categorized)
+
+| Category              | Subreddit              | Female | Male  | Total |
+|-----------------------|------------------------|--------|-------|-------|
+| Technical Core        | MachineLearning        | 228    | 575   | 803   |
+| Technical Core        | OpenAI                 | 310    | 724   | 1034  |
+| Technical Core        | deeplearning           | 65     | 568   | 633   |
+| Technical Core        | LanguageTechnology     | 56     | 457   | 513   |
+| Technical Core        | learnmachinelearning   | 214    | 623   | 837   |
+| Technical Core        | MLQuestions            | 52     | 553   | 605   |
+| Technical Core        | datascience            | 231    | 567   | 798   |
+| Technical Core        | LocalLLaMA             | 206    | 580   | 786   |
+| Technical Core        | Oobabooga              | 21     | 120   | 141   |
+| Technical Core        | LLMDevs                | 24     | 343   | 367   |
+| Creative/Usage        | Midjourney             | 1228   | 1136  | 2364  |
+| Creative/Usage        | StableDiffusion        | 1146   | 954   | 2100  |
+| Creative/Usage        | AIArt                  | 2160   | 1997  | 4157  |
+| Creative/Usage        | comfyui                | 422    | 657   | 1079  |
+| Creative/Usage        | dalle                  | 96     | 287   | 383   |
+| Career                | CSCareerQuestions      | 1357   | 2336  | 3693  |
+| Career                | ExperiencedDevs        | 298    | 853   | 1151  |
+| Career                | cscareerquestionsEU    | 466    | 837   | 1303  |
+| Career                | MLjobs                 | 15     | 88    | 103   |
+| Ethics & Soft AI      | artificial             | 420    | 922   | 1342  |
+| Ethics & Soft AI      | singularity            | 360    | 1077  | 1437  |
+| Ethics & Soft AI      | ChatGPT                | 1768   | 2229  | 3997  |
+| Ethics & Soft AI      | AIethics               | 2      | 11    | 13    |
+| Ethics & Soft AI      | ControlProblem         | 41     | 217   | 258   |
+| Ethics & Soft AI      | AItechnology           | 3      | 12    | 15    |
+| AI Tools              | ClaudeAI               | 287    | 940   | 1227  |
+| AI Tools              | Bard                   | 244    | 704   | 948   |
+| AI Tools              | bing                   | 257    | 430   | 687   |
+| AI Tools              | Perplexity             | 0      | 9     | 9     |
+| AI Tools              | GPT3                   | 102    | 467   | 569   |
+| General               | ArtificialInteligence  | 589    | 1294  | 1883  |
+| General               | technology             | 1089   | 1742  | 2831  |
+| General               | FutureTechnology       | 0      | 5     | 5     |
+| **TOTAL**             | —                      | **13757** | **24314** | **38071** |
+
 
 ### Collection Totals
 | Data Type | Count |
