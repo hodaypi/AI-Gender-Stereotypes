@@ -91,8 +91,8 @@ This research project investigates how gender stereotypes manifest in AI-related
 |----------|----------|
 | Gender - Women (Target) | woman, female, girl, she, her, hers |
 | Gender - Men (Baseline) | man, male, guy, he, his, him |
-| Hard AI / Core Tech | LLM, Transformer, PyTorch, Tensor, GPU, Architecture, Optimization, Algorithm |
-| Soft AI / Ethics & UX | Ethics, Bias, Fairness, Policy, Regulation, Prompt Engineering, Design, Art, Moral |
+| Hard AI / Core Tech | LLM, Transformer, PyTorch, Tensor, GPU, Architecture, Optimization, Algorithm and more |
+| Soft AI / Ethics & UX | Ethics, Bias, Fairness, Policy, Regulation, Prompt Engineering, Design, Art, Moral and more  |
 
 ### LIWC Categories
 - Power & Achievement
