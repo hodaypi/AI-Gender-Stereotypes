@@ -36,6 +36,12 @@ def build_lexicons(nrc_path, gi_path, output_dir):
         },
         "perceptual_processes": {
             "see", "hear", "feel", "look", "sound", "perceive", "perception"
+        },
+        "positive_emotions": {
+            "good", "nice", "great", "joy", "trust", "hope", "excited", "amazed", "love", "happy"
+        },
+        "reward_anticipation": {
+            "take", "prize", "benefit", "award", "earn", "gain", "reward", "expect", "eager"
         }
     }
 
@@ -62,8 +68,9 @@ def build_lexicons(nrc_path, gi_path, output_dir):
     # ---------------------------------------------------------
     print("--- Step 3: Processing NRC Lexicon ---")
     # NRC
-    nrc_target_emotions = {"anger", "fear", "sadness", "disgust", "negative"}
-    
+    nrc_negative_emotions = {"anger", "fear", "sadness", "disgust", "negative"}
+    nrc_positive_emotions = {"joy", "trust", "anticipation", "surprise", "positive"}
+
     if os.path.exists(nrc_path):
         with open(nrc_path, 'r', encoding='utf-8') as f:
             for line in f:
@@ -77,8 +84,12 @@ def build_lexicons(nrc_path, gi_path, output_dir):
                     emotion = parts[1]
                     score = parts[2]
                     
-                    if score == '1' and emotion in nrc_target_emotions:
-                        lexicons["negative_emotions"].add(word.lower())
+                    if score == '1':
+                        if emotion in nrc_negative_emotions:
+                            lexicons["negative_emotions"].add(word.lower())
+                        elif emotion in nrc_positive_emotions:
+                            lexicons["positive_emotions"].add(word.lower())
+
         print("   > NRC processed successfully.")
     else:
         print(f"   > Error: NRC file not found at: {nrc_path}")
@@ -95,7 +106,9 @@ def build_lexicons(nrc_path, gi_path, output_dir):
         "negative_emotions": ["Negativ", "Ngtv", "Hostile", "Pain"],
         "certainty": ["Sure", "If", "Strong", "Definite"],
         "affiliation_social": ["Affil", "Social", "Com"],
-        "perceptual_processes": ["Percpt", "See", "Hear", "Feel", "Sense"]
+        "perceptual_processes": ["Percpt", "See", "Hear", "Feel", "Sense"],
+        "positive_emotions": ["Positiv", "Pstv", "Virtue", "Pleasur"],
+        "reward_anticipation": ["Goal", "Try"]
     }
 
     if os.path.exists(gi_path):
@@ -154,7 +167,7 @@ def main():
 
   nrc_path = "/content/gdrive/MyDrive/Data mining/text mining/NRC emotion.txt"
   gi_path = "/content/gdrive/MyDrive/Data mining/text mining/Harvard General Inquirer.txt"
-  output_dir = "/content/gdrive/MyDrive/Data mining/text mining/data/lexicons"
+  output_dir = "/content/gdrive/MyDrive/Data mining/text mining/data/lexicons_v2"
 
   print("Starting Lexical Collection...")
   build_lexicons(nrc_path, gi_path, output_dir)
