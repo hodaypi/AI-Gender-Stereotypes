@@ -9,6 +9,8 @@ direct_swaps = {
     "he": "she",
     "herself": "himself", 
     "himself": "herself",
+    "him": "her",
+    "hers": "his",
 
     "woman": "man", 
     "man": "woman",
@@ -63,17 +65,22 @@ def swap_gender(text):
         # edge cases
         if word_lower == "her":
             # PRP$ = Possessive Pronoun
-            if token.tag_ == "PRP$": 
+            if token.tag_ == "PRP$" or token.dep_ == "poss":
                 new_word = "his"  # "her book" -> "his book"
             else: 
                 new_word = "him"  # "I saw her" -> "I saw him"
                 
         elif word_lower == "his":
-            if token.tag_ == "PRP$":
+            next_token_is_punct = False
+            if token.i + 1 < len(doc): 
+                if doc[token.i + 1].is_punct:
+                    next_token_is_punct = True
+            
+            if token.dep_ == "poss" and not next_token_is_punct:
                 new_word = "her"  # "his car" -> "her car"
             else:
-                new_word = "hers" # "the car is his" -> "the car is hers"
-                
+                new_word = "hers" # "the car is his," -> "the car is hers,"
+
         # basic lexicon
         elif word_lower in direct_swaps:
             new_word = direct_swaps[word_lower]
@@ -94,8 +101,26 @@ def swap_gender(text):
 def main():
 
   print("Starting counterfactual generation...")
-  test_sentence = "She told her brother that the car is his, but she still loves her car."
+  test_sentences = [
+    # 1. בדיקת המילה her: פעם אחת כמושא ופעם שנייה כשייכות
+    "I saw her driving her new car with her mother.",
+    
+    # 2. בדיקת המילה his: פעם אחת כשייכות צמודה ופעם שנייה כשייכות עצמאית
+    "His uncle told the teacher that the missing book is his.",
+    
+    # 3. בדיקת המילים שחזרו למילון (him ו-hers)
+    "This bag is hers, so please give it back to her.",
+    
+    # 4. בדיקת מילים מהלקסיקון (משפחה, תארים) ושמירה על אות גדולה בתחילת משפט
+    "The gentle woman and her husband walked the girls to school.",
+    
+    # 5. משפט האולטימטיבי: הכל מהכל בבת אחת
+    "She told her brother that the car is his, but she still loves her car."
+  ]
 
-  print("Original:", test_sentence)
-  print("Flipped: ", swap_gender(test_sentence))
-  print("Done.")
+  print("--- Starting Sanity Check ---\n")
+
+  for i, sentence in enumerate(test_sentences, 1):
+      print(f"Test {i}:")
+      print(f"Original: {sentence}")
+      print(f"Flipped:  {swap_gender(sentence)}\n")
